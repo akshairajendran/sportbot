@@ -1,4 +1,6 @@
-./__pycache__
-./logs
-./src/__pycache__
-./src/config.py
+__pycache__/
+logs/
+src/__pycache__/
+src/config.py
+.ipynb_checkpoints/
+analysis.ipynb
