@@ -26,7 +26,7 @@ class Engine():
     self.account_bal_tolerance = (.1)*10**18
 
     #LIMITS
-    self.maxNotionalOutstanding = (.5)*10**18
+    self.maxNotionalOutstanding = (.75)*10**18
     self.notionalOutstanding = 0
 
     ### instantiate logger ###
@@ -40,7 +40,7 @@ class Engine():
 
     #reject related parameters
     self.reject_counter = 0
-    self.max_rejects = 2
+    self.max_rejects = 10
 
     #misc parameters
     self.loop_counter = 0
@@ -49,9 +49,9 @@ class Engine():
     self.leagues = ["all"]
     self.matchTypes = ["all"]
     self.strategyParams = {
-                           "edge":3,
+                           "edge":2,
                            "size":(.01)*10**18,
-                           "duration":tools.MINUTE*10,
+                           "duration":tools.MINUTE*30,
                            "quoter":True,
                            "hitter":False,
                           }
@@ -174,8 +174,7 @@ class Engine():
     """
     self.notionalOutstanding = 0
     for s in self.strategies:
-      if s.match.details["expiry"] < tools.curTime():
-        continue
+      s.expireOrders()
       bid_notional = s.bid['quantity']
       ask_notional = s.ask['quantity']
       self.notionalOutstanding += bid_notional + ask_notional
