@@ -8,6 +8,8 @@ class Match():
     """
     self.matchId = _match["id"]
     self.linkId = _match["linkid"]
+    self.longPosition = 0
+    self.shortPosition = 0
     
     strike_map = {
     "game":"spread",
