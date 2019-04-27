@@ -19,8 +19,8 @@ class Pricing():
 
     self.pricingByLeague = {}
 
-    self.maxTheo = 70
-    self.minTheo = 30
+    self.maxTheo = 80
+    self.minTheo = 20
     self.EPS = .5
 
     self.loadPricing()
