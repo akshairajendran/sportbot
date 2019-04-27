@@ -30,4 +30,17 @@ class SportCrypt():
     assert len(orderBatch) == 48
     return self.contract.functions.checkOrderBatch(orderBatch).call()
 
+  def checkMatchBatch(self, matchBatch):
+    """Returns result of checkMatchBatch, extends list to length 16 with empty strings
+    """
+    assert len(matchBatch) <= 16
+    len_input = len(matchBatch)
+    matchBatch = [tools.parseInt(m) for m in matchBatch]
+    for i in range(len_input, 16):
+      matchBatch.append(0)
+    ret = self.contract.functions.checkMatchBatch(self.checksumSelf, matchBatch).call()
+    ret = [r[:len_input] for r in ret]
+    return ret
+
+
 
