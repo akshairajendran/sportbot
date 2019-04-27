@@ -71,9 +71,11 @@ class Strategy():
       self.bid["orderId"] = 0
       self.bid["status"] = "dead"
       self.bid["expiry"] = 0
+      self.bid["quantity"] = 0
     if self.ask["expiry"] < now:
       self.ask["price"] = 100
       self.ask["orderId"] = 0
       self.ask["status"] = "dead"
       self.ask["expiry"] = 0
+      self.ask["quantity"] = 0
 
