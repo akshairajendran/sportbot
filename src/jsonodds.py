@@ -81,7 +81,7 @@ class JSONOdds():
         if tools.curTime() - self.df_odds.lastUpdated.min() > self.refresh_interval:
           print("Odds stale, querying odds")
           self.queryOdds()
-    self.last_refresh = tools.curTime()
+      self.last_refresh = tools.curTime()
 
   def getOdds(self, league, homeTeam, awayTeam, matchType):
     """Gets the odds for a specific league, homeTeam, awayTeam and type of match
