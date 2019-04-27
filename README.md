@@ -2,8 +2,8 @@
 
 sportbot is an automated market making bot for [Sportcrypt](https://sportcrypt.com) Ethereum Sports Betting Smart Contracts.
 
-*sportbot prices and maintains two-sided markets in all Sportcrypt contracts using a live odds feed from [JSONOdds](https://jsonodds.com)
-*sportbot uses historical game data from [SportsDatabase.com](https://sportsdatabase.com) to price over/under and point spread bets
+* sportbot prices and maintains two-sided markets in all Sportcrypt contracts using a live odds feed from [JSONOdds](https://jsonodds.com)
+* sportbot uses historical game data from [SportsDatabase.com](https://sportsdatabase.com) to price over/under and point spread bets
 
 ### Prerequisites
 
@@ -16,7 +16,7 @@ It interacts with Sportcypt's smart contracts via websockets and web3.py over HT
 2. Clone the repository
 3. cd to the src directory and run `pip -r requirements.txt` to install all required python packages
 
-###Configuration
+### Configuration
 
 4. Create a config.py file in the src directory with the following variables:
 
