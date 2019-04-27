@@ -1,5 +1,3 @@
-import hashlib
-import base64
 import time
 import datetime
 import websocket
@@ -58,6 +56,7 @@ class Gateway:
     self.gatewayLogger.setLevel(logging.DEBUG)
 
     #self.getInstruments()
+    self.tx = []
 
   def mdLogInit(self):
     self.md_log = True
@@ -106,6 +105,58 @@ class Gateway:
       self.marketOrders.addOrder(orderDict)
     except Exception as e:
       self.gatewayLogger.error(e)
+
+  def addTx(self, tx):
+    """Takes tx-new message and calls appropriate function
+    """
+    if tx['type'] == 'trade':
+      self.addTrade(tx)
+    return
+
+  def addTrade(self, tx):
+    """Takes trade tx and adds to match position
+    """
+    if tx['makerAccount'].replace('0x', '') == self.address:
+      direction = 'short' if tx['orderDirection'] == '0' else 'long'
+    elif tx['takerAccount'].replace('0x', '') == self.address:
+      direction = 'long' if tx['orderDirection'] == '0' else 'short'
+    else:
+      return
+
+    quantity = int(tx['{0}Amount'.format(direction)])
+    matchId = tx['matchId'].replace('0x', '')
+    if matchId in self.matchIdtoName:
+      matchName = self.matchIdtoName[matchId]
+    else:
+      #match not found
+      return
+    match = self.matches[matchName]
+    if direction == 'short':
+      match.shortPosition += quantity
+    elif direction == 'long':
+      match.longPosition += quantity
+    return
+
+
+  def checkMatches(self):
+    """Takes a list of matches and returns match status response
+    """
+    matches = [self.matches[m].matchId for m in self.matches if self.matches[m].details["expiry"] > tools.curTime()]
+    ret = []
+    for i in range(0, len(matches), 16):
+      out = self.spc.checkMatchBatch(matches[i:i + 16])
+      if len(ret) == 0:
+        ret = out
+      else:
+        ret[0] += out[0]
+        ret[1] += out[1]
+        ret[2] += out[2]
+    # for i in range(len(matches)):
+    #   matchId = matches[i]
+    #   matchName = self.matchIdtoName[matchId]
+    #   position = ret[0][i]
+    #   self.matches[matchName].position = position
+    return ret
 
   def buildBooks(self):
     """Validates all orders and builds books for all matches
@@ -372,7 +423,8 @@ class Gateway:
         
       
       def _transaction(header, message):
-        #handle internal transactions
+        self.gatewayLogger.info("Got transaction: {0}".format(message))
+        self.addTx(message['tx'])
         return
 
       def _response(header, message):
@@ -390,11 +442,11 @@ class Gateway:
       "chatmsg-new":_skip,
       "chatmsg-latest":_skip,
       "match-new":_match,
-      "match-latest":_skip,
+      "match-latest":_log,
       "order-new":_order,
-      "order-latest":_log,
-      "tx-new":_log,
-      "tx-latest":_skip,
+      "order-latest":_skip,
+      "tx-new":_transaction,
+      "tx-latest":_log,
       "txstream-new":_skip,
       "txstream-latest":_skip,
       "vol-new":_skip,
@@ -426,7 +478,7 @@ class Gateway:
       body = message_list[1]
 
       if header["id"] == 1233 or header["id"] == 1234:
-        self.gatewayLogger.info("Got heartbeat")
+        #self.gatewayLogger.info("Got heartbeat")
         return
       elif header["id"] == self.subID:
         self.gatewayLogger.info("Got subscription response")
@@ -485,7 +537,7 @@ class Gateway:
             "op": "ping"
             }
             ws.send(json.dumps(message) + '\n{}')
-            self.gatewayLogger.info("Sent heartbeat")
+            #self.gatewayLogger.info("Sent heartbeat")
             time.sleep(2)
           return
 
