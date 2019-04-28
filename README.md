@@ -29,11 +29,10 @@ It interacts with Sportcypt's smart contracts via websockets and web3.py over HT
 
 ## Usage
 
-To deploy, instantiate an Engine object with your desired log name: `engine = Engine('quoter')`. Quotes are automatically added for all leagues by default for which pricing exists. To begin quoting run `engine.run()`.
+To deploy, instantiate an Engine object with your desired log name: `engine = Engine('quoter')`. Quotes are automatically added for all leagues for which pricing exists by default. To begin quoting run `engine.run()`.
 
 ### Parameterization
 
-The following parameters pertain to top level risk:
 - engine.account_bal_tolerance specifies in Wei the most your account balance may decrease from its maximum value before killing the engine
 - engine.maxNotionalOutstanding specifies in Wei the max notional risk you may have outstanding, additional quote will not be submitted if this limit is reached
 - engine.max_rejects specifies the maximum number of automatic restarts the engine may make on non-critical errors
