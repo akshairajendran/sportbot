@@ -50,8 +50,6 @@ The following parameters pertain to top level risk:
 
 Pricing combines live odds and historical game results to compute prices for over/under bets at any point line and point spread bets at any spread. Live odds are taken from JSONOdds and assumed to be fairvalue, i.e. for the Golden State Warriors, Milwaukee Bucks game JSONOdds is predicting a total score of 225 points and a margin of 10 points for the Warriors then a contract with an over/under of 225 and a contract with a point spread of +10 for the Bucks are both priced at 50. However, we are not guaranteed to be placing quotes on these contracts--if so, pricing would be trivial. If on the Warriors-Bucks game, Sportcrypt is listing an over/under contract at 230 and a point spread contract at +7 we must determine the fair value of these contracts--which we know is not equal to 50--in order to place quotes. sportbot prices these contracts by computing the historical distribution of NBA scores and assuming the score of this game will be distributed identically with a mean of 230. For exact details on implementation, see [pricing.py](https://github.com/akshairajendran/sportbot/blob/master/src/pricing.py)
 
-
-
 ## Built With
 
 * [Python](http://www.python.org)
@@ -71,3 +69,5 @@ See also the list of [contributors](https://github.com/akshairajendran/sportbot/
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/akshairajendran/sportbot/blob/master/LICENSE.md) file for details
 
 ## Acknowledgments
+
+Thanks to the Sportcrypt team for working with me to help debug connectivity
