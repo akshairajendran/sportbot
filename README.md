@@ -19,11 +19,21 @@ It interacts with Sportcypt's smart contracts via websockets and web3.py over HT
 ### Configuration
 
 4. Create a config.py file in the src directory with the following variables:
+   - addressSelf which contains the address of your Ethereum wallet or the contract from which you will be sending/receiving funds
+   - keySelf which contains the private key to addressSelf
+   - addressSPC which contains the address to the Sportcrypt smart contract and can be found on their site
+   - INFURA_API_KEY which contains the API key to your Mainnet Infura account if using HTTP provider
+   - IPC_ADDR which contains the filepath to your local IPC endpoint if using a local node as the provider
+   - JSONODDS_API_KEY which contains the API key to your JSONOdds account
+5. **DO NOT** share your config.py file with anyone as it contains sensitive information regarding your smart contract and other API access
+
+## Usage
+
+To deploy, instantiate an Engine object with your desired log name: `engine = Engine('quoter')`
+
+### Parameterization
 
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
