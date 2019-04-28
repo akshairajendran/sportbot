@@ -34,11 +34,11 @@ To deploy, instantiate an Engine object with your desired log name: `engine = En
 ### Parameterization
 
 - engine.account_bal_tolerance specifies in Wei the most your account balance may decrease from its maximum value before killing the engine
-- engine.maxNotionalOutstanding specifies in Wei the max notional risk you may have outstanding, additional quote will not be submitted if this limit is reached
+- engine.maxNotionalOutstanding specifies in Wei the max notional risk you may have outstanding, additional quotes will not be submitted if this limit is reached
 - engine.max_rejects specifies the maximum number of automatic restarts the engine may make on non-critical errors
 - engine.leagues specifies which leagues to quote in and follows the naming convention specified by Sportcrypt
 - engine.matchTypes specifies the match or bet types in which to place quotes and follows the naming convention specified by Sportcrypt
-- engine.strategyParams specifies the default parameters by which new strategies are instantied
+- engine.strategyParams specifies the default parameters by which new strategies are instantiated
   - strategyParams.edge specifies the edge in contract price (0-100) at which to place quotes
   - strategyParams.size specifies the quantity in Wei at which to place quotes
   - strategyParams.duration specifies the duration in nanoseconds at which to place quotes, after which they will be expired by the exchange
@@ -47,7 +47,7 @@ To deploy, instantiate an Engine object with your desired log name: `engine = En
 
 ### Pricing
 
-Pricing combines live odds and historical game results to compute prices for over/under bets at any point line and point spread bets at any spread. Live odds are taken from JSONOdds and assumed to be fairvalue, i.e. for the Golden State Warriors, Milwaukee Bucks game JSONOdds is predicting a total score of 225 points and a margin of 10 points for the Warriors then a contract with an over/under of 225 and a contract with a point spread of +10 for the Bucks are both priced at 50. However, we are not guaranteed to be placing quotes on these contracts--if so, pricing would be trivial. If on the Warriors-Bucks game, Sportcrypt is listing an over/under contract at 230 and a point spread contract at +7 we must determine the fair value of these contracts--which we know is not equal to 50--in order to place quotes. sportbot prices these contracts by computing the historical distribution of NBA scores and assuming the score of this game will be distributed identically with a mean of 230. For exact details on implementation, see [pricing.py](https://github.com/akshairajendran/sportbot/blob/master/src/pricing.py)
+Pricing combines live odds and historical game results to compute prices for over/under bets at any point line and point spread bets at any spread. Live odds are taken from JSONOdds and assumed to be fairvalue, i.e. for the Golden State Warriors, Milwaukee Bucks game JSONOdds is predicting a total score of 225 points and a margin of 10 points for the Warriors; a contract with an over/under of 225 and a contract with a point spread of +10 for the Bucks are both priced at 50. However, we are not guaranteed to be placing quotes on these contracts--if so, pricing would be trivial. If on the Warriors-Bucks game, Sportcrypt is listing an over/under contract at 230 and a point spread contract at +7 we must determine the fair value of these contracts--which we know is not equal to 50--in order to place quotes. sportbot prices these contracts by computing the historical distribution of NBA scores and assuming the score of this game will be distributed identically with a mean of 230. For exact details on implementation, see [pricing.py](https://github.com/akshairajendran/sportbot/blob/master/src/pricing.py)
 
 ## Built With
 
