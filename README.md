@@ -29,7 +29,7 @@ It interacts with Sportcypt's smart contracts via websockets and web3.py over HT
 
 ## Usage
 
-To deploy, instantiate an Engine object with your desired log name: `engine = Engine('quoter')`. Quote are automatically added for all leagues by default for which pricing exists. To begin quoting run `engine.run()`.
+To deploy, instantiate an Engine object with your desired log name: `engine = Engine('quoter')`. Quotes are automatically added for all leagues by default for which pricing exists. To begin quoting run `engine.run()`.
 
 ### Parameterization
 
