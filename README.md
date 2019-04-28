@@ -70,4 +70,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](https://gi
 
 ## Acknowledgments
 
-Thanks to the Sportcrypt team for working with me to help debug connectivity
+Thanks to the Sportcrypt team for helping me with their API and working with me to debug any issues I had.
